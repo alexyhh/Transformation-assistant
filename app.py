@@ -66,18 +66,21 @@ def login_page():
         st.markdown("---")
         st.info("**Demo Credentials:**\n\nUsername: `admin` | Password: `transform2024`\n\nUsername: `manager` | Password: `change2024`")
 
-def setup_openai_client():
-    """Setup OpenAI client with API key"""
+def get_openai_client():
+    """Get OpenAI client instance"""
     if st.session_state.openai_api_key:
-        openai.api_key = st.session_state.openai_api_key
-        return True
-    return False
+        try:
+            return OpenAI(api_key=st.session_state.openai_api_key)
+        except Exception as e:
+            st.error(f"Error initializing OpenAI client: {str(e)}")
+            return None
+    return None
 
 def analyze_transformation_data(user_input, analysis_type):
     """Analyze transformation data using OpenAI"""
-    client = setup_openai_client()
+    client = get_openai_client()
     if not client:
-        return "Please configure your OpenAI API key in the sidebar."
+        return "Please configure your OpenAI API key in Streamlit Cloud secrets."
     
     system_prompts = {
         "risk_detection": """You are a transformation management expert specializing in risk detection. 
@@ -109,7 +112,15 @@ def analyze_transformation_data(user_input, analysis_type):
         )
         return response.choices[0].message.content
     except Exception as e:
-        return f"Error: {str(e)}\n\nPlease check your API key and ensure you have sufficient credits."
+        error_msg = str(e)
+        if "rate_limit" in error_msg.lower():
+            return "⚠️ Rate limit exceeded. Please wait a moment and try again."
+        elif "insufficient_quota" in error_msg.lower():
+            return "⚠️ Insufficient API credits. Please check your OpenAI account balance."
+        elif "invalid_api_key" in error_msg.lower():
+            return "⚠️ Invalid API key. Please check your OpenAI API key in Streamlit secrets."
+        else:
+            return f"⚠️ Error: {error_msg}\n\nPlease check your API key and ensure you have sufficient credits."
 
 def main_app():
     """Main application interface"""
