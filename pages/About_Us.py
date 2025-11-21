@@ -8,12 +8,6 @@ if not st.session_state.get("authenticated", False):
 st.title("ℹ️ About Us")
 st.write("This is the About Us page.")
 
-st.set_page_config(
-    page_title="About Us – Transformation Management Assistant",
-    page_icon="ℹ️",
-    layout="wide",
-)
-
 # Simple guard to respect your existing login flow in app.py
 if not st.session_state.get("authenticated", False):
     st.warning("🔒 Please log in from the main page to access this content.")
@@ -73,4 +67,5 @@ with right:
 **Prototype scope (this version):**
 
 - Focuses on **text-based i**
+
 
