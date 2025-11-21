@@ -1,5 +1,12 @@
 import streamlit as st
 
+if not st.session_state.get("authenticated", False):
+    st.warning("🔒 Please log in from the main page.")
+    st.stop()
+
+st.title("🧪 Methodology")
+st.write("This is the Methodology page.")
+
 st.set_page_config(
     page_title="Methodology – Transformation Management Assistant",
     page_icon="🧪",
@@ -242,3 +249,4 @@ Although this is a prototype, several safeguards are already applied:
 
 1. **Login & Access Control**  
    - Access requires username/password; credentials are s
+
