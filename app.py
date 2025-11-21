@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 from datetime import datetime
 import json
 import hashlib
@@ -75,7 +75,8 @@ def setup_openai_client():
 
 def analyze_transformation_data(user_input, analysis_type):
     """Analyze transformation data using OpenAI"""
-    if not setup_openai_client():
+    client = setup_openai_client()
+    if not client:
         return "Please configure your OpenAI API key in the sidebar."
     
     system_prompts = {
@@ -97,7 +98,7 @@ def analyze_transformation_data(user_input, analysis_type):
     }
     
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": system_prompts.get(analysis_type, system_prompts["risk_detection"])},
@@ -108,7 +109,7 @@ def analyze_transformation_data(user_input, analysis_type):
         )
         return response.choices[0].message.content
     except Exception as e:
-        return f"Error: {str(e)}"
+        return f"Error: {str(e)}\n\nPlease check your API key and ensure you have sufficient credits."
 
 def main_app():
     """Main application interface"""
@@ -117,15 +118,24 @@ def main_app():
     with st.sidebar:
         st.title("⚙️ Configuration")
         
-        # API Key input
-        api_key = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            value=st.session_state.openai_api_key or "",
-            help="Enter your OpenAI API key to enable AI analysis"
-        )
-        if api_key:
-            st.session_state.openai_api_key = api_key
+        # API Key Status Display (No manual entry needed)
+        st.markdown("### 🔑 API Status")
+        if st.session_state.openai_api_key:
+            st.success("✅ OpenAI Connected")
+            st.caption("Securely configured via secrets")
+        else:
+            st.error("❌ API Key Missing")
+            st.caption("Configure in Streamlit Cloud secrets")
+            with st.expander("ℹ️ Setup Instructions"):
+                st.markdown("""
+                **Streamlit Cloud:**
+                1. Go to app Settings → Secrets
+                2. Add: `OPENAI_API_KEY = "sk-..."`
+                
+                **Local Development:**
+                1. Create `.streamlit/secrets.toml`
+                2. Add: `OPENAI_API_KEY = "sk-..."`
+                """)
         
         st.markdown("---")
         
