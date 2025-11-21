@@ -2,6 +2,13 @@ import streamlit as st
 import pandas as pd
 from collections import Counter
 
+if not st.session_state.get("authenticated", False):
+    st.warning("🔒 Please log in from the main page.")
+    st.stop()
+
+st.title("📊 Usage & Query Analytics")
+st.write("Visualisation will go here.")
+
 st.set_page_config(
     page_title="Usage & Query Analytics",
     page_icon="📊",
@@ -138,3 +145,4 @@ st.caption(
     "This view is based only on the current Streamlit session. "
     "Data is not persisted once the session ends."
 )
+
