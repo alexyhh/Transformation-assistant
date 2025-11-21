@@ -162,7 +162,7 @@ def main_app():
         # Quick stats
         st.markdown("### 📊 Quick Stats")
         st.metric("Analysis Count", len(st.session_state.chat_history))
-        st.metric("Session Duration", f"{(datetime.now().hour - 9) % 12}h")
+        # removed session duration as it is confusing st.metric("Session Duration", f"{(datetime.now().hour - 9) % 12}h")
         
         st.markdown("---")
         
