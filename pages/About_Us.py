@@ -2,70 +2,76 @@ import streamlit as st
 
 # Require login
 if not st.session_state.get("authenticated", False):
-    st.warning("🔒 Please log in from the main page.")
-    st.stop()
-
-st.title("ℹ️ About Us")
-st.write("This is the About Us page.")
-
-# Simple guard to respect your existing login flow in app.py
-if not st.session_state.get("authenticated", False):
     st.warning("🔒 Please log in from the main page to access this content.")
     st.stop()
 
 st.title("ℹ️ About the Transformation Management Assistant")
 st.markdown("---")
 
-# Intro / overview
-st.subheader("1. Overview")
-st.markdown(
-    """
-The **Transformation Management Assistant** is an AI-powered prototype designed to help 
-**transformation leads and change managers** monitor ongoing initiatives more effectively.
+st.subheader("1. Project Overview")
+st.markdown("""
+The **Transformation Management Assistant** is an AI-powered prototype designed to help
+public-sector transformation teams detect risks early, understand team sentiment, and
+apply proven change management frameworks during ongoing transformation programmes.
+""")
 
-It acts as a **co-pilot for transformation and change**, focusing on:
+st.subheader("2. Problem Statement & Motivation")
+st.markdown("""
+Many transformation efforts face:
+- Delayed detection of risks and resistance  
+- Important signals buried within emails or meeting notes  
+- Inconsistent use of change management frameworks  
+- Difficulty synthesising qualitative insights  
 
-- 🔍 Early detection of risks and weak signals  
-- 👥 Understanding team sentiment and resistance patterns  
-- 📋 Applying proven change management frameworks to real situations  
-- 💡 Generating targeted, actionable recommendations  
-"""
-)
+This tool provides structure, early warning signals, and actionable change management insights.
+""")
 
-with st.expander("🎯 How this ties to the WOG Ideathon problem statements"):
-    st.markdown(
-        """
-This prototype is aligned to Whole-of-Government (WOG) needs around:
+st.subheader("3. Objectives")
+st.markdown("""
+- Identify weak signals and potential risks **2–3 weeks early**  
+- Analyse team sentiment and communication patterns  
+- Provide guidance based on ADKAR, Prosci, and Kotter  
+- Help transformation leads make faster, grounded decisions  
+- Demonstrate a safe LLM-supported application aligned to WOG requirements  
+""")
 
-- Making sense of **fragmented qualitative data** (emails, meeting notes, chat logs)  
-- Giving non-experts access to **embedded change management expertise** on demand  
-- Demonstrating a **safe, contained use of LLMs** in a government context  
-"""
-    )
+st.subheader("4. Target Users")
+col1, col2 = st.columns(2)
 
-st.markdown("---")
+with col1:
+    st.markdown("""
+**Primary Users**
+- Transformation leads  
+- PMO / project managers  
+- HR / change management partners  
+- Innovation teams  
+""")
 
-# Problem statement & scope
-st.subheader("2. Problem Statement & Project Scope")
-left, right = st.columns(2)
+with col2:
+    st.markdown("""
+**Key Features**
+- 🔍 Risk Detection  
+- 📋 Change Management Guidance  
+- 👥 Team Analysis  
+- 💡 Strategic Recommendations  
+- 📜 Per-Session History  
+""")
 
-with left:
-    st.markdown(
-        """
-**Common challenges in transformation programmes:**
+st.subheader("5. Data Sources & Privacy")
+st.markdown("""
+**Data used:**
+- User-pasted project updates  
+- Meeting notes  
+- Emails or chat excerpts  
+- Descriptions of challenges  
 
-- Risks and resistance are often surfaced **too late**  
-- Insights are buried in long **email threads and meeting notes**  
-- Change frameworks (ADKAR, Kotter, Prosci) are **not consistently applied**  
-- Managers need **practical, context-aware advice**, not theory
-"""
-    )
+**Not used:**
+- No agency databases  
+- No ERP/HR systems  
+- No personal data scraping  
+- No permanent storage  
 
-with right:
-    st.markdown(
-        """
-**Prototype scope (this version):**
+All data lives only inside the current **Streamlit session memory**.
+""")
 
-- Focuses on **text-based i**
-
-
+st.caption("This page fulfils the 'About Us' documentation requirement.")
