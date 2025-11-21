@@ -18,10 +18,9 @@ apply proven change management frameworks during ongoing transformation programm
 st.subheader("2. Problem Statement & Motivation")
 st.markdown("""
 Many transformation efforts face:
-- Delayed detection of risks and resistance  
 - Important signals buried within emails or meeting notes  
-- Inconsistent use of change management frameworks  
-- Difficulty synthesising qualitative insights  
+- Inconsistent use of change management frameworks, leading to delayed detection of risks and resistance  
+- Difficulty synthesising qualitative insights due to volume of work  
 
 This tool provides structure, early warning signals, and actionable change management insights.
 """)
@@ -29,8 +28,7 @@ This tool provides structure, early warning signals, and actionable change manag
 st.subheader("3. Objectives")
 st.markdown("""
 - Identify weak signals and potential risks **2–3 weeks early**  
-- Analyse team sentiment and communication patterns  
-- Provide guidance based on ADKAR, Prosci, and Kotter  
+- Analyse team sentiment and communication patterns 
 - Help transformation leads make faster, grounded decisions  
 - Demonstrate a safe LLM-supported application aligned to WOG requirements  
 """)
@@ -75,3 +73,4 @@ All data lives only inside the current **Streamlit session memory**.
 """)
 
 st.caption("This page fulfils the 'About Us' documentation requirement.")
+
