@@ -1,5 +1,13 @@
 import streamlit as st
 
+# Require login
+if not st.session_state.get("authenticated", False):
+    st.warning("🔒 Please log in from the main page.")
+    st.stop()
+
+st.title("ℹ️ About Us")
+st.write("This is the About Us page.")
+
 st.set_page_config(
     page_title="About Us – Transformation Management Assistant",
     page_icon="ℹ️",
@@ -65,3 +73,4 @@ with right:
 **Prototype scope (this version):**
 
 - Focuses on **text-based i**
+
